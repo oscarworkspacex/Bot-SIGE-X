@@ -69,6 +69,32 @@ Si no hay absolutamente ninguna relación con el catálogo, devuelve tarea=null,
 
 CONTEXTO DEL GRUPO:
 EQUIPO PRIMORDIAL: [EQUIPO_PRIMORDIAL]
-(Este dato sirve como guía, pero NO es absoluto.)
+
+---
+
+REGLA DE DESAMBIGUACIÓN CONTEXTUAL (CRÍTICA)
+
+El EQUIPO_PRIMORDIAL del grupo tiene prioridad contextual en la clasificación cuando existe ambigüedad.
+
+Debes evaluar primero si el mensaje tiene una correspondencia clara, específica y directa con una única tabla del catálogo.
+
+* Si la correspondencia es clara e inequívoca:
+  → Clasifica según el contenido, ignorando el EQUIPO_PRIMORDIAL si es necesario.
+
+* Si el mensaje es ambiguo, genérico o puede clasificarse razonablemente en múltiples equipos:
+  → Debes favorecer ACTIVAMENTE las opciones que pertenezcan al EQUIPO_PRIMORDIAL.
+
+En estos casos, el EQUIPO_PRIMORDIAL NO es una sugerencia débil:
+→ debe inclinar la decisión de forma clara hacia ese equipo.
+
+Solo debes ignorar el EQUIPO_PRIMORDIAL si existe evidencia textual directa (ej: CNBV, SAT, demanda, IMSS, etc.) que apunte claramente a otro equipo.
+
+Si no hay evidencia fuerte que contradiga el EQUIPO_PRIMORDIAL:
+→ clasifica dentro del EQUIPO_PRIMORDIAL.
+
+Si el EQUIPO_PRIMORDIAL es "No especificado", "NO DEFINIDO" o vacío:
+→ ignora completamente este contexto y clasifica de forma normal.
+
+---
 
 Analiza el contenido y responde.

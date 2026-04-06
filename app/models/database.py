@@ -10,6 +10,27 @@ class Base(DeclarativeBase):
     pass
 
 
+class ChatSettings(Base):
+    __tablename__ = "chat_settings"
+
+    chat_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    equipo_principal: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+
+    def __repr__(self) -> str:
+        return f"<ChatSettings chat={self.chat_id} equipo={self.equipo_principal}>"
+
+
 class Classification(Base):
     __tablename__ = "classifications"
 
