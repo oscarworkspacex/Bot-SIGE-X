@@ -3,10 +3,12 @@ from __future__ import annotations
 import json
 import logging
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 from openai import AsyncOpenAI
 
+from app.catalog.loader import load_catalog
 from app.config.settings import get_settings
 
 logger = logging.getLogger(__name__)
@@ -31,9 +33,55 @@ class Capa1Result:
     motivo: str | None
 
 
-def _load_prompt(equipo_primordial: str = "No especificado") -> str:
-    text = _PROMPT_PATH.read_text(encoding="utf-8")
-    return text.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
+@lru_cache
+def _build_schema() -> dict:
+    catalog = load_catalog()
+    valid_equipos = [eq["nombre"] for eq in catalog["equipos"]]
+    valid_tablas = sorted({
+        tabla["nombre"]
+        for eq in catalog["equipos"]
+        for tabla in eq["tablas"]
+    })
+
+    return {
+        "type": "object",
+        "properties": {
+            "positivo": {"type": "boolean"},
+            "equipo_probable": {
+                "anyOf": [
+                    {"type": "string", "enum": valid_equipos},
+                    {"type": "null"},
+                ],
+            },
+            "tabla_probable": {
+                "anyOf": [
+                    {"type": "string", "enum": valid_tablas},
+                    {"type": "null"},
+                ],
+            },
+            "confianza": {"type": "number"},
+            "motivo": {"type": "string"},
+        },
+        "required": ["positivo", "equipo_probable", "tabla_probable", "confianza", "motivo"],
+        "additionalProperties": False,
+    }
+
+
+def _build_catalog_summary() -> str:
+    catalog = load_catalog()
+    summary: list[str] = []
+    for equipo in catalog["equipos"]:
+        tablas = [t["nombre"] for t in equipo["tablas"]]
+        summary.append(f'Equipo: {equipo["nombre"]}\nTablas: {", ".join(tablas)}')
+    return "\n\n".join(summary)
+
+
+@lru_cache
+def _build_instructions(equipo_primordial: str) -> str:
+    template = _PROMPT_PATH.read_text(encoding="utf-8")
+    catalog_text = _build_catalog_summary()
+    prompt = template.replace("[CATALOGO_JSON]", catalog_text)
+    return prompt.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
 
 
 def _make_error_result(motivo: str) -> Capa1Result:
@@ -52,30 +100,35 @@ async def classify_capa1(
 ) -> Capa1Result:
     settings = get_settings()
     client = _get_client()
-    system_prompt = _load_prompt(equipo_primordial)
+    instructions = _build_instructions(equipo_primordial)
+    schema = _build_schema()
 
     try:
-        response = await client.chat.completions.create(
+        response = await client.responses.create(
             model=settings.openai_model_capa1,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": message_text},
-            ],
+            instructions=instructions,
+            input=message_text,
+            text={
+                "format": {
+                    "type": "json_schema",
+                    "name": "capa1_response",
+                    "strict": True,
+                    "schema": schema,
+                }
+            },
             temperature=0.0,
+            max_output_tokens=200,
         )
     except Exception:
         logger.exception("Capa 1: error en llamada a OpenAI")
         return _make_error_result("Error de conexión con IA")
 
-    raw = response.choices[0].message.content or ""
+    raw = response.output_text or ""
     logger.debug("Capa 1 raw response: %s", raw)
 
     try:
-        cleaned = raw.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("\n", 1)[1].rsplit("```", 1)[0]
-        data = json.loads(cleaned)
-    except (json.JSONDecodeError, IndexError):
+        data = json.loads(raw)
+    except json.JSONDecodeError:
         logger.warning("Capa 1: respuesta no parseable: %s", raw)
         return _make_error_result("Error al parsear respuesta de IA")
 

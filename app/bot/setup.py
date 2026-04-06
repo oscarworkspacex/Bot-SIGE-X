@@ -20,6 +20,9 @@ def create_bot_application() -> Application:
 
     app.add_handler(CommandHandler("start", start_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(
+        MessageHandler(filters.Document.ALL | filters.PHOTO, handle_message)
+    )
 
     logger.info("Bot de Telegram configurado")
     return app

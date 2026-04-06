@@ -28,6 +28,8 @@ class Classification(Base):
     capa2_tabla: Mapped[str | None] = mapped_column(String(200), nullable=True)
     capa2_tarea: Mapped[str | None] = mapped_column(Text, nullable=True)
 
+    decision_final: Mapped[str | None] = mapped_column(String(50), nullable=True)
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

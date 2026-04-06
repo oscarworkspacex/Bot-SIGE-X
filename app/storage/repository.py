@@ -24,6 +24,7 @@ async def save_classification(
     capa2_equipo: str | None = None,
     capa2_tabla: str | None = None,
     capa2_tarea: str | None = None,
+    decision_final: str | None = None,
 ) -> Classification:
     session_factory = get_session_factory()
     async with session_factory() as session:
@@ -39,12 +40,16 @@ async def save_classification(
             capa2_equipo=capa2_equipo,
             capa2_tabla=capa2_tabla,
             capa2_tarea=capa2_tarea,
+            decision_final=decision_final,
             created_at=datetime.now(timezone.utc),
         )
         session.add(record)
         await session.commit()
         await session.refresh(record)
-        logger.info("Clasificación guardada: id=%s chat=%s", record.id, record.telegram_chat_id)
+        logger.info(
+            "Clasificación guardada: id=%s chat=%s decision=%s",
+            record.id, record.telegram_chat_id, record.decision_final,
+        )
         return record
 
 

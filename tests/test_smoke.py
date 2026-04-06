@@ -1,4 +1,4 @@
-"""Smoke tests: verifican imports, config, catálogo, modelos, health y parseo."""
+"""Smoke tests: verifican imports, config, catálogo, modelos, health, parseo y prefilter."""
 
 from __future__ import annotations
 
@@ -86,6 +86,7 @@ def test_prompts_capa1_exists_and_has_placeholder():
     prompt_path = Path(__file__).parent.parent / "app" / "prompts" / "capa_1.txt"
     text = prompt_path.read_text(encoding="utf-8")
     assert "[EQUIPO_PRIMORDIAL]" in text
+    assert "[CATALOGO_JSON]" in text
     assert "positivo" in text
     assert "confianza" in text
 
@@ -95,9 +96,66 @@ def test_prompts_capa2_exists_and_has_placeholder():
     prompt_path = Path(__file__).parent.parent / "app" / "prompts" / "capa_2.txt"
     text = prompt_path.read_text(encoding="utf-8")
     assert "[EQUIPO_PRIMORDIAL]" in text
-    assert "TAREA QUE DEBE SER REGISTRADA" in text
-    assert "EQUIPO:" in text
-    assert "TABLA:" in text
+    assert "[CATALOGO_JSON]" in text
+    assert "[CRITERIOS_DESAMBIGUACION]" in text
+    assert "tarea" in text
+    assert "equipo" in text
+    assert "tabla" in text
+
+
+# --- Pre-filtro ---
+
+def test_prefilter_rejects_greetings():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("hola") is False
+    assert passes_prefilter("Buenos días") is False
+    assert passes_prefilter("Buenas tardes!") is False
+    assert passes_prefilter("Saludos") is False
+
+
+def test_prefilter_rejects_casual():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("ok") is False
+    assert passes_prefilter("jajaja") is False
+    assert passes_prefilter("gracias") is False
+    assert passes_prefilter("👍") is False
+    assert passes_prefilter("sí") is False
+    assert passes_prefilter("Jaja gracias") is False
+    assert passes_prefilter("hola gracias") is False
+    assert passes_prefilter("Ok perfecto") is False
+    assert passes_prefilter("ya listo") is False
+
+
+def test_prefilter_rejects_emojis_only():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("😊🎉👏") is False
+    assert passes_prefilter("❤️") is False
+
+
+def test_prefilter_rejects_short():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("ab") is False
+    assert passes_prefilter("") is False
+
+
+def test_prefilter_passes_task_like():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("Necesito abrir una cuenta bancaria para el cliente") is True
+    assert passes_prefilter("Hay que contestar la queja de CONDUSEF") is True
+    assert passes_prefilter("El requerimiento de la CNBV vence mañana") is True
+    assert passes_prefilter("Declaración anual de la empresa") is True
+
+
+def test_prefilter_passes_ambiguous():
+    from app.classifiers.prefilter import passes_prefilter
+    assert passes_prefilter("manda el documento al SAT por favor") is True
+    assert passes_prefilter("hay que checar lo del IMSS") is True
+
+
+def test_normalize_text():
+    from app.classifiers.prefilter import normalize_text
+    assert normalize_text("  hola   mundo  ") == "hola mundo"
+    assert normalize_text("\n\ttexto\n") == "texto"
 
 
 # --- Clasificadores (unit) ---
@@ -144,18 +202,87 @@ def test_capa2_parse_incomplete():
     assert r.is_null is True
 
 
+def test_capa2_parse_structured_valid():
+    from app.classifiers.capa_2 import _parse_structured
+    data = {
+        "tarea": "Abrir cuenta bancaria",
+        "equipo": "Der Financiero",
+        "tabla": "Cuentas bancarias y similares en proceso",
+    }
+    r = _parse_structured(data)
+    assert r.is_null is False
+    assert r.equipo == "Der Financiero"
+    assert r.tabla == "Cuentas bancarias y similares en proceso"
+
+
+def test_capa2_parse_structured_null():
+    from app.classifiers.capa_2 import _parse_structured
+    data_null = {"tarea": None, "equipo": None, "tabla": None}
+    r = _parse_structured(data_null)
+    assert r.is_null is True
+
+
+def test_capa2_parse_structured_rejects_invalid_equipo():
+    from app.classifiers.capa_2 import _parse_structured
+    data = {
+        "tarea": "Responder oficio CNBV",
+        "equipo": "Regulatorio",
+        "tabla": "Desahogos de requerimientos",
+    }
+    r = _parse_structured(data)
+    assert r.is_null is True
+
+
+def test_capa2_parse_structured_rejects_invalid_tabla():
+    from app.classifiers.capa_2 import _parse_structured
+    data = {
+        "tarea": "Algo",
+        "equipo": "Der Financiero",
+        "tabla": "Tabla inventada que no existe",
+    }
+    r = _parse_structured(data)
+    assert r.is_null is True
+
+
+def test_capa2_schema_has_enum_constraints():
+    from app.classifiers.capa_2 import _build_schema
+    schema = _build_schema()
+    equipo_prop = schema["properties"]["equipo"]
+    equipo_enum = equipo_prop["anyOf"][0]["enum"]
+    assert "Litigio" in equipo_enum
+    assert "Der Financiero" in equipo_enum
+    assert "Regulatorio" not in equipo_enum
+    assert len(equipo_enum) == 5
+
+    tabla_prop = schema["properties"]["tabla"]
+    tabla_enum = tabla_prop["anyOf"][0]["enum"]
+    assert "Copias pendientes" in tabla_enum
+    assert "Escritos de fondo" in tabla_enum
+    assert len(tabla_enum) > 50
+
+
 # --- Modelos ---
 
 def test_classification_model():
-    from app.models.database import Classification, Base
-    assert Classification.__tablename__ == "classifications"
+    from app.models.database import Classification
     columns = {c.name for c in Classification.__table__.columns}
     expected = {
         "id", "telegram_chat_id", "telegram_message_id", "raw_text",
         "capa1_positivo", "capa1_equipo", "capa1_tabla", "capa1_confianza", "capa1_motivo",
-        "capa2_equipo", "capa2_tabla", "capa2_tarea", "created_at",
+        "capa2_equipo", "capa2_tabla", "capa2_tarea",
+        "decision_final", "created_at",
     }
     assert expected == columns
+
+
+# --- Decision constants ---
+
+def test_decision_constants():
+    from app.services.classifier_service import Decision
+    assert Decision.PREFILTER_REJECTED == "prefilter_rejected"
+    assert Decision.CAPA1_NEGATIVE == "capa1_negative"
+    assert Decision.CAPA2_NULL == "capa2_null"
+    assert Decision.TASK_FOUND == "task_found"
 
 
 # --- Health endpoint ---

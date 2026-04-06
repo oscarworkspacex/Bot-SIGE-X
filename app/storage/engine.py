@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -45,10 +46,34 @@ def get_session_factory() -> async_sessionmaker[AsyncSession]:
     return _session_factory
 
 
+async def _ensure_sqlite_columns(engine: AsyncEngine) -> None:
+    """Añade columnas faltantes en SQLite (create_all no altera tablas existentes)."""
+    settings = get_settings()
+    if "sqlite" not in settings.database_url.lower():
+        return
+    async with engine.begin() as conn:
+        r = await conn.execute(
+            text(
+                "SELECT name FROM sqlite_master "
+                "WHERE type='table' AND name='classifications'"
+            )
+        )
+        if r.fetchone() is None:
+            return
+        r2 = await conn.execute(text("PRAGMA table_info(classifications)"))
+        columns = {row[1] for row in r2.fetchall()}
+        if "decision_final" not in columns:
+            await conn.execute(
+                text("ALTER TABLE classifications ADD COLUMN decision_final VARCHAR(50)")
+            )
+            logger.info("SQLite: columna decision_final añadida (migración)")
+
+
 async def init_db() -> None:
     engine = get_engine()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    await _ensure_sqlite_columns(engine)
     logger.info("Base de datos inicializada")
 
 

@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import json
 import logging
-import re
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 from openai import AsyncOpenAI
 
+from app.catalog.loader import load_catalog, validate_classification
 from app.config.settings import get_settings
 
 logger = logging.getLogger(__name__)
@@ -30,12 +32,94 @@ class Capa2Result:
     is_null: bool
 
 
-def _load_prompt(equipo_primordial: str = "No especificado") -> str:
-    text = _PROMPT_PATH.read_text(encoding="utf-8")
-    return text.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
+@lru_cache
+def _build_schema() -> dict:
+    catalog = load_catalog()
+    valid_equipos = [eq["nombre"] for eq in catalog["equipos"]]
+    valid_tablas = sorted({
+        tabla["nombre"]
+        for eq in catalog["equipos"]
+        for tabla in eq["tablas"]
+    })
+
+    return {
+        "type": "object",
+        "properties": {
+            "tarea": {
+                "anyOf": [{"type": "string"}, {"type": "null"}],
+            },
+            "equipo": {
+                "anyOf": [
+                    {"type": "string", "enum": valid_equipos},
+                    {"type": "null"},
+                ],
+            },
+            "tabla": {
+                "anyOf": [
+                    {"type": "string", "enum": valid_tablas},
+                    {"type": "null"},
+                ],
+            },
+        },
+        "required": ["tarea", "equipo", "tabla"],
+        "additionalProperties": False,
+    }
+
+
+def _build_catalog_json() -> str:
+    catalog = load_catalog()
+    compact = {"equipos": []}
+    for equipo in catalog["equipos"]:
+        eq = {"nombre": equipo["nombre"], "tablas": []}
+        for tabla in equipo["tablas"]:
+            t: dict = {"nombre": tabla["nombre"], "descripcion": tabla["descripcion"]}
+            if tabla.get("ejemplos"):
+                t["ejemplos"] = tabla["ejemplos"]
+            if tabla.get("exclusiones"):
+                t["exclusiones"] = tabla["exclusiones"]
+            eq["tablas"].append(t)
+        compact["equipos"].append(eq)
+    return json.dumps(compact, ensure_ascii=False, indent=1)
+
+
+def _build_criterios() -> str:
+    catalog = load_catalog()
+    criterios = catalog.get("criterios_desambiguacion", [])
+    return "\n".join(f"- {c}" for c in criterios)
+
+
+@lru_cache
+def _build_instructions(equipo_primordial: str) -> str:
+    template = _PROMPT_PATH.read_text(encoding="utf-8")
+    catalog_text = _build_catalog_json()
+    criterios = _build_criterios()
+    prompt = template.replace("[CATALOGO_JSON]", catalog_text)
+    prompt = prompt.replace("[CRITERIOS_DESAMBIGUACION]", criterios)
+    return prompt.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
+
+
+def _parse_structured(data: dict) -> Capa2Result:
+    tarea = data.get("tarea")
+    equipo = data.get("equipo")
+    tabla = data.get("tabla")
+
+    if not equipo and not tabla:
+        return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
+
+    if not validate_classification(equipo, tabla):
+        logger.warning(
+            "Capa 2 devolvió combinación inválida equipo=%s tabla=%s — descartando",
+            equipo, tabla,
+        )
+        return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
+
+    return Capa2Result(tarea=tarea, equipo=equipo, tabla=tabla, is_null=False)
 
 
 def _parse_response(raw: str) -> Capa2Result:
+    """Parse legacy text format (kept for backward compatibility in tests)."""
+    import re
+
     text = raw.strip()
 
     if text.upper() == "NULL" or not text:
@@ -69,22 +153,36 @@ async def classify_capa2(
 ) -> Capa2Result:
     settings = get_settings()
     client = _get_client()
-    system_prompt = _load_prompt(equipo_primordial)
+    instructions = _build_instructions(equipo_primordial)
+    schema = _build_schema()
 
     try:
-        response = await client.chat.completions.create(
+        response = await client.responses.create(
             model=settings.openai_model_capa2,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": message_text},
-            ],
+            instructions=instructions,
+            input=message_text,
+            text={
+                "format": {
+                    "type": "json_schema",
+                    "name": "capa2_response",
+                    "strict": True,
+                    "schema": schema,
+                }
+            },
             temperature=0.0,
+            max_output_tokens=200,
         )
     except Exception:
         logger.exception("Capa 2: error en llamada a OpenAI")
         return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
 
-    raw = response.choices[0].message.content or ""
+    raw = response.output_text or ""
     logger.debug("Capa 2 raw response: %s", raw)
 
-    return _parse_response(raw)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        logger.warning("Capa 2: respuesta no parseable: %s", raw)
+        return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
+
+    return _parse_structured(data)
