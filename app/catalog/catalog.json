@@ -1,0 +1,637 @@
+{
+  "equipos": [
+    {
+      "nombre": "Litigio",
+      "tablas": [
+        {
+          "id": "escritos_de_fondo",
+          "numero": 1,
+          "nombre": "Escritos de fondo",
+          "descripcion": "Cualquier escrito inicial o de fondo, impugnaciones, recursos o escritos complejos.",
+          "ejemplos": [
+            "amparos",
+            "recursos de queja",
+            "quejas",
+            "recursos de revisión",
+            "recursos de revocación",
+            "demandas de nulidad",
+            "demandas de todo tipo",
+            "denuncias",
+            "ampliaciones de demanda",
+            "ampliaciones de amparo",
+            "recursos de reconsideración",
+            "apelaciones",
+            "inconformidades"
+          ],
+          "exclusiones": [
+            "escritos de tabla 2 y 3 de este equipo"
+          ]
+        },
+        {
+          "id": "escritos_presentados",
+          "numero": 2,
+          "nombre": "Escritos que deben ser presentados",
+          "descripcion": "Todo tipo de escritos diferentes a los de fondo. Escritos que no son de razonamiento jurídico.",
+          "ejemplos": [
+            "autorizaciones",
+            "desahogos de vista",
+            "solicitudes de todo tipo",
+            "solicitudes de copias",
+            "presentaciones de documentos",
+            "comparecencias",
+            "apelaciones de tramitación preventiva",
+            "aceptaciones del cargo de albacea"
+          ],
+          "exclusiones": [
+            "escritos de tabla 1 y 3 de este equipo"
+          ]
+        },
+        {
+          "id": "desahogo_prevenciones",
+          "numero": 3,
+          "nombre": "Desahogo de prevenciones",
+          "descripcion": "Desahogos de prevenciones hechas por los jueces o equivalente a los escritos iniciales o de fondo.",
+          "ejemplos": [
+            "desahogo de prevención"
+          ],
+          "exclusiones": [
+            "escritos de tabla 1 y 2 de este equipo"
+          ]
+        },
+        {
+          "id": "hablar_jueces_magistrados",
+          "numero": 4,
+          "nombre": "Hablar con jueces y magistrados",
+          "descripcion": "Tareas relacionadas con hablar personalmente con jueces, magistrados o autoridades tomadoras de decisión.",
+          "ejemplos": [
+            "hablar con juez",
+            "hablar con magistrado",
+            "hablar con MP",
+            "hablar con un funcionario público",
+            "hacer cita con juez o magistrado",
+            "hacer cita con Director de Obras"
+          ],
+          "exclusiones": [
+            "hablar con particulares"
+          ]
+        },
+        {
+          "id": "sentencias_pendientes",
+          "numero": 5,
+          "nombre": "Sentencias pendientes",
+          "descripcion": "Sentencias pendientes de resolución o notificación.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "audiencias_citas_oficiales",
+          "numero": 6,
+          "nombre": "Audiencias y citas oficiales",
+          "descripcion": "Audiencias y citas oficiales programadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "citas_actuarios",
+          "numero": 7,
+          "nombre": "Citas con actuarios",
+          "descripcion": "Citas programadas con actuarios.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "notificaciones_emplazamientos_pendientes",
+          "numero": 8,
+          "nombre": "Notificaciones y emplazamientos pendientes",
+          "descripcion": "Notificaciones y emplazamientos pendientes de realizarse.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "apelaciones_tramitacion_preventiva",
+          "numero": 9,
+          "nombre": "Apelaciones de tramitación preventiva",
+          "descripcion": "Apelaciones de tramitación preventiva.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "apelaciones_recursos_amparos_pendientes",
+          "numero": 10,
+          "nombre": "Apelaciones, recursos de alzada y amparos pendientes de ser radicados",
+          "descripcion": "Apelaciones, recursos de alzada y amparos pendientes de radicación.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "copias_pendientes",
+          "numero": 11,
+          "nombre": "Copias pendientes",
+          "descripcion": "Copias pendientes de entrega o solicitud.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "oficios_exhortos_pendientes",
+          "numero": 12,
+          "nombre": "Oficios y exhortos pendientes",
+          "descripcion": "Oficios y exhortos pendientes de trámite.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "pruebas_pendientes",
+          "numero": 13,
+          "nombre": "Pruebas pendientes de ser presentadas",
+          "descripcion": "Pruebas pendientes de presentación.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "publicaciones",
+          "numero": 14,
+          "nombre": "Publicaciones",
+          "descripcion": "Publicaciones pendientes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "esperar_resolucion",
+          "numero": 15,
+          "nombre": "Esperar resolución",
+          "descripcion": "Asuntos en espera de resolución.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fechas_aceptacion_albacea",
+          "numero": 16,
+          "nombre": "Fechas de aceptación del cargo de albacea",
+          "descripcion": "Fechas de aceptación del cargo de albacea.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "expedientes_devueltos_archivo",
+          "numero": 17,
+          "nombre": "Expedientes que deben ser devueltos del archivo judicial",
+          "descripcion": "Expedientes que deben ser devueltos del archivo judicial.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "devoluciones_documentos_pendientes",
+          "numero": 18,
+          "nombre": "Devoluciones de documentos pendientes",
+          "descripcion": "Devoluciones de documentos pendientes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "expedientes_escaneados",
+          "numero": 19,
+          "nombre": "Expedientes que deben ser escaneados",
+          "descripcion": "Expedientes que deben ser escaneados.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "asuntos_delegados_corporativo",
+          "numero": 20,
+          "nombre": "Asuntos delegados en equipo de derecho corporativo-laboral",
+          "descripcion": "Asuntos delegados al equipo de derecho corporativo-laboral.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "seguimiento_terceros_ajenos",
+          "numero": 21,
+          "nombre": "Dar seguimiento a acciones de terceros",
+          "descripcion": "Dar seguimiento a acciones de terceros ajenos al despacho.",
+          "ejemplos": [],
+          "exclusiones": []
+        }
+      ]
+    },
+    {
+      "nombre": "Corporativo y laboral",
+      "tablas": [
+        {
+          "id": "tramites_impi",
+          "numero": 1,
+          "nombre": "Ingresar trámite IMPI",
+          "descripcion": "Trámites ante el IMPI.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "tramites_sai",
+          "numero": 2,
+          "nombre": "Ingresar SAI",
+          "descripcion": "Trámites en el SAI.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "informes_rnie",
+          "numero": 3,
+          "nombre": "Registrar informe trimestral o anual RNIE",
+          "descripcion": "Informes trimestrales o anuales RNIE.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "instrumentos_pendientes_firma",
+          "numero": 4,
+          "nombre": "Instrumentos pendientes de firma",
+          "descripcion": "Instrumentos pendientes de firma.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "cuentas_bancarias_pend",
+          "numero": 5,
+          "nombre": "Cuentas bancarias (y similares) pendientes",
+          "descripcion": "Cuentas bancarias y similares pendientes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "declaraciones_uso_efectivo",
+          "numero": 6,
+          "nombre": "Declaraciones de uso efectivo",
+          "descripcion": "Declaraciones de uso efectivo.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "otros_tramites_administrativos",
+          "numero": 7,
+          "nombre": "Otros trámites administrativos",
+          "descripcion": "Otros trámites administrativos no clasificados.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "citas_audiencias_corporativo",
+          "numero": 8,
+          "nombre": "Citas y audiencias",
+          "descripcion": "Citas y audiencias del equipo corporativo.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "avisos_sat_cambio_accionistas",
+          "numero": 9,
+          "nombre": "Avisos SAT cambio de accionistas",
+          "descripcion": "Avisos al SAT por cambio de accionistas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "desahogo_prevenciones_corporativo",
+          "numero": 10,
+          "nombre": "Desahogo de prevenciones",
+          "descripcion": "Desahogo de prevenciones del equipo corporativo.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "esperar_resolucion_corporativo",
+          "numero": 11,
+          "nombre": "Esperar resolución",
+          "descripcion": "Asuntos corporativos en espera de resolución.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "registro_instrumento_rpp_rpm_rpc",
+          "numero": 12,
+          "nombre": "Registro de instrumento en RPP, RPM o RPC",
+          "descripcion": "Registro de instrumentos en RPP, RPM o RPC.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "entrega_instrumento_clientes",
+          "numero": 13,
+          "nombre": "Entrega de instrumento a clientes",
+          "descripcion": "Entrega de instrumentos a clientes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "busquedas_foneticas",
+          "numero": 14,
+          "nombre": "Búsquedas fonéticas",
+          "descripcion": "Búsquedas fonéticas.",
+          "ejemplos": [],
+          "exclusiones": []
+        }
+      ]
+    },
+    {
+      "nombre": "Convenios",
+      "tablas": [
+        {
+          "id": "convenios_contratos_no_mediacion",
+          "numero": 1,
+          "nombre": "Convenios o contratos (no de mediación)",
+          "descripcion": "Convenios o contratos que no son de mediación.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "convenios_mediacion",
+          "numero": 2,
+          "nombre": "Convenios de mediación",
+          "descripcion": "Convenios de mediación.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "desahogo_prevenciones_convenios",
+          "numero": 3,
+          "nombre": "Desahogo de prevenciones",
+          "descripcion": "Desahogo de prevenciones del equipo de convenios.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "investigacion_antecedentes_registrales",
+          "numero": 4,
+          "nombre": "Investigación de antecedentes registrales",
+          "descripcion": "Investigación de antecedentes registrales.",
+          "ejemplos": [],
+          "exclusiones": []
+        }
+      ]
+    },
+    {
+      "nombre": "Der Financiero",
+      "tablas": [
+        {
+          "id": "fin_solicitudes_periodicas_info",
+          "numero": 1,
+          "nombre": "Solicitudes periódicas de información",
+          "descripcion": "Solicitudes periódicas de información.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_proximo_termino_sofomes",
+          "numero": 2,
+          "nombre": "Próximo término para contratos de SOFOMES",
+          "descripcion": "Próximo término para contratos de SOFOMES.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_ifit",
+          "numero": 3,
+          "nombre": "Reportes IFIT",
+          "descripcion": "Reportes IFIT.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_reco",
+          "numero": 4,
+          "nombre": "Reportes RECO",
+          "descripcion": "Reportes RECO.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_redeco",
+          "numero": 5,
+          "nombre": "Reportes REDECO mensual",
+          "descripcion": "Reportes REDECO mensuales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_redeco_trimestral",
+          "numero": 6,
+          "nombre": "Reportes REDECO trimestral",
+          "descripcion": "Reportes REDECO trimestrales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_reune_mensuales",
+          "numero": 7,
+          "nombre": "Reportes REUNE mensuales",
+          "descripcion": "Reportes REUNE mensuales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_reune_trimestrales",
+          "numero": 8,
+          "nombre": "Reportes REUNE trimestrales",
+          "descripcion": "Reportes REUNE trimestrales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_reus",
+          "numero": 9,
+          "nombre": "Reportes REUS",
+          "descripcion": "Reportes REUS.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_quejas_condusef_contestadas",
+          "numero": 10,
+          "nombre": "Quejas CONDUSEF que deben ser contestadas",
+          "descripcion": "Quejas CONDUSEF que deben ser contestadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_desahogos_requerimientos",
+          "numero": 11,
+          "nombre": "Desahogos de requerimientos",
+          "descripcion": "Desahogos de requerimientos financieros.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_operaciones_relevantes",
+          "numero": 12,
+          "nombre": "Reportes de operaciones relevantes",
+          "descripcion": "Reportes de operaciones relevantes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_operaciones_vulnerables",
+          "numero": 13,
+          "nombre": "Reportes de operaciones vulnerables",
+          "descripcion": "Reportes de operaciones vulnerables.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_operaciones_inusuales",
+          "numero": 14,
+          "nombre": "Reportes de operaciones inusuales",
+          "descripcion": "Reportes de operaciones inusuales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_reportes_operaciones_preocupantes",
+          "numero": 15,
+          "nombre": "Reportes de operaciones preocupantes",
+          "descripcion": "Reportes de operaciones preocupantes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "fin_cuentas_bancarias_similares_proceso",
+          "numero": 16,
+          "nombre": "Cuentas bancarias y similares en proceso",
+          "descripcion": "Cuentas bancarias y similares en proceso.",
+          "ejemplos": [],
+          "exclusiones": []
+        }
+      ]
+    },
+    {
+      "nombre": "Compliance Fiscal",
+      "tablas": [
+        {
+          "id": "comp_pre_declaraciones_enviadas",
+          "numero": 1,
+          "nombre": "Pre-declaraciones que deben ser enviadas",
+          "descripcion": "Pre-declaraciones que deben ser enviadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaraciones_sat_presentadas",
+          "numero": 2,
+          "nombre": "Declaraciones SAT que deben ser presentadas",
+          "descripcion": "Declaraciones SAT que deben ser presentadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaraciones_isn_presentadas",
+          "numero": 3,
+          "nombre": "Declaraciones de ISN que deben ser presentadas",
+          "descripcion": "Declaraciones de ISN que deben ser presentadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaraciones_imss_presentadas",
+          "numero": 4,
+          "nombre": "Declaraciones de IMSS que deben ser presentadas",
+          "descripcion": "Declaraciones de IMSS que deben ser presentadas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_entregables",
+          "numero": 5,
+          "nombre": "Entregables",
+          "descripcion": "Entregables del equipo de compliance fiscal.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_procesamiento_contabilidad",
+          "numero": 6,
+          "nombre": "Procesamiento de contabilidad",
+          "descripcion": "Procesamiento de contabilidad.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_contabilidad_electronica_sat",
+          "numero": 7,
+          "nombre": "Contabilidad electrónica que debe ser subida al SAT",
+          "descripcion": "Contabilidad electrónica que debe ser subida al SAT.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaraciones_anuales",
+          "numero": 8,
+          "nombre": "Declaraciones anuales",
+          "descripcion": "Declaraciones anuales.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaracion_anual_accionistas_extranjeros",
+          "numero": 9,
+          "nombre": "Declaración anual de relación de accionistas extranjeros",
+          "descripcion": "Declaración anual de relación de accionistas extranjeros.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_declaracion_cambio_accionistas",
+          "numero": 10,
+          "nombre": "Declaración de cambio de accionistas",
+          "descripcion": "Declaración de cambio de accionistas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_vigencia_efirmas",
+          "numero": 11,
+          "nombre": "Vigencia de e.firmas",
+          "descripcion": "Vigencia de e.firmas.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_movimientos_imss",
+          "numero": 12,
+          "nombre": "Movimientos IMSS",
+          "descripcion": "Movimientos IMSS.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_citas_sat_pendientes",
+          "numero": 13,
+          "nombre": "Citas SAT pendientes",
+          "descripcion": "Citas SAT pendientes.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_tramites_en_proceso",
+          "numero": 14,
+          "nombre": "Trámites en proceso",
+          "descripcion": "Trámites en proceso.",
+          "ejemplos": [],
+          "exclusiones": []
+        },
+        {
+          "id": "comp_empresas_domiciliadas_yacatas",
+          "numero": 15,
+          "nombre": "Procesar comprobante de domicilio en Yácatas",
+          "descripcion": "Procesar comprobante de domicilio en Yácatas.",
+          "ejemplos": [],
+          "exclusiones": []
+        }
+      ]
+    }
+  ],
+  "criterios_desambiguacion": [
+    "Si el texto habla de 'desahogo de prevenciones', 'esperar resolución' o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.",
+    "Si el texto corresponde a un trámite/regulación corporativa, no lo mandes a Litigio.",
+    "Si el texto corresponde a reportes regulatorios, CONDUSEF, REDECO, REUNE, REUS, IFIT o requerimientos financieros, clasifica en Der Financiero.",
+    "Si el texto corresponde a declaraciones SAT/ISN/IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.",
+    "Si el texto corresponde a convenios, mediación o investigación registral para convenios, clasifica en Convenios.",
+    "Si el texto apunta a 'acciones de terceros que son parte del juicio' u otra categoría no incluida, devuelve null."
+  ]
+}
