@@ -176,11 +176,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         )
 
         if result.decision == Decision.TASK_FOUND and result.capa2:
-            await update.message.reply_text(
-                f"Tarea detectada\n"
-                f"Equipo: {result.capa2.equipo}\n"
-                f"Tabla: {result.capa2.tabla}"
-            )
+            lines = ["Tarea detectada"]
+            if result.capa2.tarea:
+                lines.append(f"Tarea que debe ser registrada: {result.capa2.tarea}")
+            lines.append(f"Equipo: {result.capa2.equipo}")
+            lines.append(f"Tabla: {result.capa2.tabla}")
+            await update.message.reply_text("\n".join(lines))
 
     except Exception:
         logger.exception("Error procesando mensaje chat=%s msg=%s", chat_id, message_id)

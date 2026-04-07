@@ -58,7 +58,7 @@ CRITERIOS DE DESAMBIGUACIÓN:
 ---
 
 CAMPOS DE RESPUESTA:
-- tarea: descripción breve de la tarea detectada, o null si no hay tarea
+- tarea: resumen conciso y claro de la tarea específica que debe registrarse, redactado como nombre de actividad (ej: "Presentar solicitud de copias certificadas", "Compliance fiscal mensual", "Dar seguimiento a sentencia pendiente"). Nunca debe ser genérico ni repetir el nombre de la tabla. Debe reflejar la acción concreta mencionada en el mensaje. Devuelve null solo si no hay tarea.
 - equipo: nombre EXACTO del equipo del catálogo (uno de los 5 válidos), o null
 - tabla: nombre EXACTO de la tabla del catálogo, o null
 
