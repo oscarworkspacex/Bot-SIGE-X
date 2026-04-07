@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     openai_api_key: str
     openai_model_capa1: str = "gpt-4o-mini"
     openai_model_capa2: str = "gpt-4o"
+    openai_timeout: float = 30.0
     database_url: str = f"sqlite+aiosqlite:///{(BASE_DIR / 'data' / 'bot.db').as_posix()}"
     log_level: str = "INFO"
 

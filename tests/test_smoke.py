@@ -176,31 +176,15 @@ def test_confidence_combined():
     assert compute_combined_confidence(1.0, capa2_is_null=False) == 1.0
 
 
-def test_capa2_parse_null():
-    from app.classifiers.capa_2 import _parse_response
-    r = _parse_response("NULL")
+def test_capa2_parse_structured_all_none():
+    from app.classifiers.capa_2 import _parse_structured
+    r = _parse_structured({"tarea": None, "equipo": None, "tabla": None})
     assert r.is_null is True
-    r2 = _parse_response("")
-    assert r2.is_null is True
 
 
-def test_capa2_parse_valid():
-    from app.classifiers.capa_2 import _parse_response
-    raw = (
-        "TAREA QUE DEBE SER REGISTRADA: Abrir cuenta bancaria\n"
-        "EQUIPO: Der Financiero\n"
-        "TABLA: Abrir cuenta bancaria o similar"
-    )
-    r = _parse_response(raw)
-    assert r.is_null is False
-    assert r.equipo == "Der Financiero"
-    assert r.tabla == "Abrir cuenta bancaria o similar"
-    assert r.tarea == "Abrir cuenta bancaria"
-
-
-def test_capa2_parse_incomplete():
-    from app.classifiers.capa_2 import _parse_response
-    r = _parse_response("texto sin formato esperado")
+def test_capa2_parse_structured_missing_keys():
+    from app.classifiers.capa_2 import _parse_structured
+    r = _parse_structured({})
     assert r.is_null is True
 
 

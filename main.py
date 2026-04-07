@@ -13,24 +13,22 @@ from app.storage.engine import close_db, init_db
 
 logger = logging.getLogger(__name__)
 
-_bot_app = None
 
-
-async def _run_bot_polling() -> None:
-    global _bot_app
-    _bot_app = create_bot_application()
-    await _bot_app.initialize()
-    await _bot_app.start()
-    await _bot_app.updater.start_polling(drop_pending_updates=True)
+async def _run_bot_polling(app: FastAPI) -> None:
+    bot_app = create_bot_application()
+    await bot_app.initialize()
+    await bot_app.start()
+    await bot_app.updater.start_polling(drop_pending_updates=True)
+    app.state.bot_app = bot_app
     logger.info("Bot de Telegram iniciado en modo polling")
 
 
-async def _stop_bot_polling() -> None:
-    global _bot_app
-    if _bot_app is not None:
-        await _bot_app.updater.stop()
-        await _bot_app.stop()
-        await _bot_app.shutdown()
+async def _stop_bot_polling(app: FastAPI) -> None:
+    bot_app = getattr(app.state, "bot_app", None)
+    if bot_app is not None:
+        await bot_app.updater.stop()
+        await bot_app.stop()
+        await bot_app.shutdown()
         logger.info("Bot de Telegram detenido")
 
 
@@ -40,11 +38,11 @@ async def lifespan(app: FastAPI):
     logger.info("Iniciando Bot Sige X...")
 
     await init_db()
-    await _run_bot_polling()
+    await _run_bot_polling(app)
 
     yield
 
-    await _stop_bot_polling()
+    await _stop_bot_polling(app)
     await close_db()
     logger.info("Bot Sige X apagado")
 

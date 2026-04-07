@@ -6,22 +6,13 @@ from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from openai import AsyncOpenAI
-
 from app.catalog.loader import load_catalog, validate_classification
 from app.config.settings import get_settings
+from app.services.openai_client import get_openai_client
 
 logger = logging.getLogger(__name__)
 
 _PROMPT_PATH = Path(__file__).parent.parent / "prompts" / "capa_2.txt"
-_client: AsyncOpenAI | None = None
-
-
-def _get_client() -> AsyncOpenAI:
-    global _client
-    if _client is None:
-        _client = AsyncOpenAI(api_key=get_settings().openai_api_key)
-    return _client
 
 
 @dataclass
@@ -66,7 +57,7 @@ def _build_schema() -> dict:
     }
 
 
-@lru_cache
+@lru_cache(maxsize=32)
 def _build_instructions(equipo_primordial: str) -> str:
     template = _PROMPT_PATH.read_text(encoding="utf-8")
     return template.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
@@ -90,43 +81,12 @@ def _parse_structured(data: dict) -> Capa2Result:
     return Capa2Result(tarea=tarea, equipo=equipo, tabla=tabla, is_null=False)
 
 
-def _parse_response(raw: str) -> Capa2Result:
-    """Parse legacy text format (kept for backward compatibility in tests)."""
-    import re
-
-    text = raw.strip()
-
-    if text.upper() == "NULL" or not text:
-        return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
-
-    tarea = None
-    equipo = None
-    tabla = None
-
-    match_tarea = re.search(r"TAREA QUE DEBE SER REGISTRADA:\s*(.+)", text)
-    if match_tarea:
-        tarea = match_tarea.group(1).strip()
-
-    match_equipo = re.search(r"EQUIPO:\s*(.+)", text)
-    if match_equipo:
-        equipo = match_equipo.group(1).strip()
-
-    match_tabla = re.search(r"TABLA:\s*(.+)", text)
-    if match_tabla:
-        tabla = match_tabla.group(1).strip()
-
-    if not equipo and not tabla:
-        return Capa2Result(tarea=None, equipo=None, tabla=None, is_null=True)
-
-    return Capa2Result(tarea=tarea, equipo=equipo, tabla=tabla, is_null=False)
-
-
 async def classify_capa2(
     message_text: str,
     equipo_primordial: str = "No especificado",
 ) -> Capa2Result:
     settings = get_settings()
-    client = _get_client()
+    client = get_openai_client()
     instructions = _build_instructions(equipo_primordial)
     schema = _build_schema()
 

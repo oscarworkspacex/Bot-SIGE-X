@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Float, Index, Integer, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -33,9 +33,12 @@ class ChatSettings(Base):
 
 class Classification(Base):
     __tablename__ = "classifications"
+    __table_args__ = (
+        Index("ix_chat_message", "telegram_chat_id", "telegram_message_id"),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    telegram_chat_id: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    telegram_chat_id: Mapped[int] = mapped_column(Integer, nullable=False)
     telegram_message_id: Mapped[int] = mapped_column(Integer, nullable=False)
     raw_text: Mapped[str] = mapped_column(Text, nullable=False)
 

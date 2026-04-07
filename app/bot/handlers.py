@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+import time
+from collections import defaultdict
 
 from telegram import ChatMember, Update
 from telegram.ext import ContextTypes
@@ -17,6 +19,20 @@ from app.services.classifier_service import Decision, process_message
 logger = logging.getLogger(__name__)
 
 _EQUIPOS_LIST_TEXT = "\n".join(f"• {e}" for e in VALID_EQUIPOS)
+
+_RATE_LIMIT_MAX = 5
+_RATE_LIMIT_WINDOW = 60.0
+_rate_limit_store: dict[int, list[float]] = defaultdict(list)
+
+
+def _is_rate_limited(chat_id: int) -> bool:
+    now = time.monotonic()
+    timestamps = _rate_limit_store[chat_id]
+    _rate_limit_store[chat_id] = [t for t in timestamps if now - t < _RATE_LIMIT_WINDOW]
+    if len(_rate_limit_store[chat_id]) >= _RATE_LIMIT_MAX:
+        return True
+    _rate_limit_store[chat_id].append(now)
+    return False
 
 
 async def _is_group_admin(update: Update) -> bool:
@@ -163,6 +179,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     chat_id = update.message.chat_id
     message_id = update.message.message_id
+
+    if _is_rate_limited(chat_id):
+        logger.warning("Rate limit alcanzado para chat=%s, ignorando mensaje", chat_id)
+        return
 
     equipo = await get_equipo_principal(chat_id)
     equipo_primordial = equipo if equipo else "No especificado"

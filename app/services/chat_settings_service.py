@@ -5,18 +5,13 @@ from datetime import datetime, timezone
 
 from sqlalchemy import select
 
+from app.catalog.loader import get_equipos
 from app.models.database import ChatSettings
 from app.storage.engine import get_session_factory
 
 logger = logging.getLogger(__name__)
 
-VALID_EQUIPOS = [
-    "Litigio",
-    "Corporativo y laboral",
-    "Convenios",
-    "Der Financiero",
-    "Compliance Fiscal",
-]
+VALID_EQUIPOS: list[str] = get_equipos()
 
 _EQUIPOS_LOWER: dict[str, str] = {e.lower(): e for e in VALID_EQUIPOS}
 

@@ -6,22 +6,13 @@ from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from openai import AsyncOpenAI
-
 from app.catalog.loader import load_catalog
 from app.config.settings import get_settings
+from app.services.openai_client import get_openai_client
 
 logger = logging.getLogger(__name__)
 
 _PROMPT_PATH = Path(__file__).parent.parent / "prompts" / "capa_1.txt"
-_client: AsyncOpenAI | None = None
-
-
-def _get_client() -> AsyncOpenAI:
-    global _client
-    if _client is None:
-        _client = AsyncOpenAI(api_key=get_settings().openai_api_key)
-    return _client
 
 
 @dataclass
@@ -76,7 +67,7 @@ def _build_catalog_summary() -> str:
     return "\n\n".join(summary)
 
 
-@lru_cache
+@lru_cache(maxsize=32)
 def _build_instructions(equipo_primordial: str) -> str:
     template = _PROMPT_PATH.read_text(encoding="utf-8")
     catalog_text = _build_catalog_summary()
@@ -99,7 +90,7 @@ async def classify_capa1(
     equipo_primordial: str = "No especificado",
 ) -> Capa1Result:
     settings = get_settings()
-    client = _get_client()
+    client = get_openai_client()
     instructions = _build_instructions(equipo_primordial)
     schema = _build_schema()
 

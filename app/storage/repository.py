@@ -3,8 +3,6 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from sqlalchemy import select
-
 from app.models.database import Classification
 from app.storage.engine import get_session_factory
 
@@ -51,16 +49,3 @@ async def save_classification(
             record.id, record.telegram_chat_id, record.decision_final,
         )
         return record
-
-
-async def get_classifications_by_chat(chat_id: int, limit: int = 50) -> list[Classification]:
-    session_factory = get_session_factory()
-    async with session_factory() as session:
-        stmt = (
-            select(Classification)
-            .where(Classification.telegram_chat_id == chat_id)
-            .order_by(Classification.created_at.desc())
-            .limit(limit)
-        )
-        result = await session.execute(stmt)
-        return list(result.scalars().all())

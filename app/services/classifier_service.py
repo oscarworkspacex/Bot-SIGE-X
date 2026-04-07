@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from app.catalog.loader import validate_classification
 from app.classifiers.capa_1 import Capa1Result, classify_capa1
 from app.classifiers.capa_2 import Capa2Result, classify_capa2
+from app.classifiers.confidence import compute_combined_confidence
 from app.classifiers.prefilter import normalize_text, passes_prefilter
 from app.storage.repository import save_classification
 
@@ -28,6 +29,7 @@ class ClassificationResult:
     catalog_valid: bool
     decision: str
     db_id: int | None
+    confidence: float = 0.0
 
 
 async def process_message(
@@ -82,6 +84,8 @@ async def process_message(
         capa2.equipo, capa2.tabla, capa2.tarea, capa2.is_null,
     )
 
+    combined_conf = compute_combined_confidence(capa1.confianza, capa2.is_null)
+
     if capa2.is_null:
         record = await save_classification(
             telegram_chat_id=chat_id,
@@ -97,6 +101,7 @@ async def process_message(
         return ClassificationResult(
             capa1=capa1, capa2=capa2, catalog_valid=False,
             decision=Decision.CAPA2_NULL, db_id=record.id,
+            confidence=combined_conf,
         )
 
     catalog_valid = validate_classification(capa2.equipo, capa2.tabla)
@@ -126,4 +131,5 @@ async def process_message(
     return ClassificationResult(
         capa1=capa1, capa2=capa2, catalog_valid=catalog_valid,
         decision=decision, db_id=record.id,
+        confidence=combined_conf,
     )
