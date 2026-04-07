@@ -66,36 +66,10 @@ def _build_schema() -> dict:
     }
 
 
-def _build_catalog_json() -> str:
-    catalog = load_catalog()
-    compact = {"equipos": []}
-    for equipo in catalog["equipos"]:
-        eq = {"nombre": equipo["nombre"], "tablas": []}
-        for tabla in equipo["tablas"]:
-            t: dict = {"nombre": tabla["nombre"], "descripcion": tabla["descripcion"]}
-            if tabla.get("ejemplos"):
-                t["ejemplos"] = tabla["ejemplos"]
-            if tabla.get("exclusiones"):
-                t["exclusiones"] = tabla["exclusiones"]
-            eq["tablas"].append(t)
-        compact["equipos"].append(eq)
-    return json.dumps(compact, ensure_ascii=False, indent=1)
-
-
-def _build_criterios() -> str:
-    catalog = load_catalog()
-    criterios = catalog.get("criterios_desambiguacion", [])
-    return "\n".join(f"- {c}" for c in criterios)
-
-
 @lru_cache
 def _build_instructions(equipo_primordial: str) -> str:
     template = _PROMPT_PATH.read_text(encoding="utf-8")
-    catalog_text = _build_catalog_json()
-    criterios = _build_criterios()
-    prompt = template.replace("[CATALOGO_JSON]", catalog_text)
-    prompt = prompt.replace("[CRITERIOS_DESAMBIGUACION]", criterios)
-    return prompt.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
+    return template.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
 
 
 def _parse_structured(data: dict) -> Capa2Result:

@@ -24,14 +24,14 @@
             "inconformidades"
           ],
           "exclusiones": [
-            "escritos de tabla 2 y 3 de este equipo"
+            "No incluir en esta tabla los escritos de las tablas 2 y 3 de este equipo."
           ]
         },
         {
           "id": "escritos_presentados",
           "numero": 2,
           "nombre": "Escritos que deben ser presentados",
-          "descripcion": "Todo tipo de escritos diferentes a los de fondo. Escritos que no son de razonamiento jurídico.",
+          "descripcion": "Todo tipo de escritos diferentes a los señalados en la tabla anterior. Escritos que no son de fondo de razonamiento jurídico.",
           "ejemplos": [
             "autorizaciones",
             "desahogos de vista",
@@ -40,46 +40,51 @@
             "presentaciones de documentos",
             "comparecencias",
             "apelaciones de tramitación preventiva",
-            "aceptaciones del cargo de albacea"
+            "aceptaciones del cargo de albacea",
+            "solicitar habilitación de días y horas inhábiles",
+            "presentar escrito para habilitar días y horas inhábiles"
           ],
           "exclusiones": [
-            "escritos de tabla 1 y 3 de este equipo"
+            "No incluir en esta tabla los escritos de las tablas 1 y 3 de este equipo."
           ]
         },
         {
           "id": "desahogo_prevenciones",
           "numero": 3,
           "nombre": "Desahogo de prevenciones",
-          "descripcion": "Desahogos de prevenciones hechas por los jueces o equivalente a los escritos iniciales o de fondo.",
+          "descripcion": "Desahogos de prevenciones hechas por los jueces o equivalente a los escritos iniciales o a los escritos de fondo de cualquier tipo.",
           "ejemplos": [
             "desahogo de prevención"
           ],
           "exclusiones": [
-            "escritos de tabla 1 y 2 de este equipo"
+            "No incluir en esta tabla los escritos de las tablas 1 y 2 de este equipo."
           ]
         },
         {
           "id": "hablar_jueces_magistrados",
           "numero": 4,
           "nombre": "Hablar con jueces y magistrados",
-          "descripcion": "Tareas relacionadas con hablar personalmente con jueces, magistrados o autoridades tomadoras de decisión.",
+          "descripcion": "Tareas relacionadas con la necesidad de hablar personalmente con los jueces o equivalentes y, en general, autoridades tomadoras de decisión.",
           "ejemplos": [
             "hablar con juez",
             "hablar con magistrado",
             "hablar con MP",
             "hablar con un funcionario público",
             "hacer cita con juez o magistrado",
-            "hacer cita con Director de Obras"
+            "hacer cita con Director de Obras",
+            "ir personalmente a ver al juez",
+            "agenda una reunión con el magistrado"
           ],
           "exclusiones": [
-            "hablar con particulares"
+            "Hablar con particulares.",
+            "No incluir aquí peticiones que por regla general deban formularse por escrito, aunque el mensaje use expresiones como 'dile al juez' o 'pídele al juez'."
           ]
         },
         {
           "id": "sentencias_pendientes",
           "numero": 5,
           "nombre": "Sentencias pendientes",
-          "descripcion": "Sentencias pendientes de resolución o notificación.",
+          "descripcion": "Pendiente de emisión o llegada de sentencia.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -87,7 +92,7 @@
           "id": "audiencias_citas_oficiales",
           "numero": 6,
           "nombre": "Audiencias y citas oficiales",
-          "descripcion": "Audiencias y citas oficiales programadas.",
+          "descripcion": "Audiencias y citas oficiales dentro de procedimientos.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -95,7 +100,7 @@
           "id": "citas_actuarios",
           "numero": 7,
           "nombre": "Citas con actuarios",
-          "descripcion": "Citas programadas con actuarios.",
+          "descripcion": "Citas con actuarios.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -103,7 +108,7 @@
           "id": "notificaciones_emplazamientos_pendientes",
           "numero": 8,
           "nombre": "Notificaciones y emplazamientos pendientes",
-          "descripcion": "Notificaciones y emplazamientos pendientes de realizarse.",
+          "descripcion": "Notificaciones y emplazamientos pendientes.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -119,7 +124,7 @@
           "id": "apelaciones_recursos_amparos_pendientes",
           "numero": 10,
           "nombre": "Apelaciones, recursos de alzada y amparos pendientes de ser radicados",
-          "descripcion": "Apelaciones, recursos de alzada y amparos pendientes de radicación.",
+          "descripcion": "Apelaciones, recursos de alzada y amparos pendientes de ser radicados.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -127,7 +132,7 @@
           "id": "copias_pendientes",
           "numero": 11,
           "nombre": "Copias pendientes",
-          "descripcion": "Copias pendientes de entrega o solicitud.",
+          "descripcion": "Copias pendientes.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -135,7 +140,7 @@
           "id": "oficios_exhortos_pendientes",
           "numero": 12,
           "nombre": "Oficios y exhortos pendientes",
-          "descripcion": "Oficios y exhortos pendientes de trámite.",
+          "descripcion": "Oficios y exhortos pendientes.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -143,7 +148,7 @@
           "id": "pruebas_pendientes",
           "numero": 13,
           "nombre": "Pruebas pendientes de ser presentadas",
-          "descripcion": "Pruebas pendientes de presentación.",
+          "descripcion": "Pruebas pendientes de ser presentadas.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -151,7 +156,7 @@
           "id": "publicaciones",
           "numero": 14,
           "nombre": "Publicaciones",
-          "descripcion": "Publicaciones pendientes.",
+          "descripcion": "Publicaciones.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -159,7 +164,7 @@
           "id": "esperar_resolucion",
           "numero": 15,
           "nombre": "Esperar resolución",
-          "descripcion": "Asuntos en espera de resolución.",
+          "descripcion": "Esperar resolución.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -175,7 +180,7 @@
           "id": "expedientes_devueltos_archivo",
           "numero": 17,
           "nombre": "Expedientes que deben ser devueltos del archivo judicial",
-          "descripcion": "Expedientes que deben ser devueltos del archivo judicial.",
+          "descripcion": "Expedientes pendientes de devolución del archivo judicial.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -199,7 +204,7 @@
           "id": "asuntos_delegados_corporativo",
           "numero": 20,
           "nombre": "Asuntos delegados en equipo de derecho corporativo-laboral",
-          "descripcion": "Asuntos delegados al equipo de derecho corporativo-laboral.",
+          "descripcion": "Asuntos delegados al equipo corporativo-laboral.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -207,7 +212,7 @@
           "id": "seguimiento_terceros_ajenos",
           "numero": 21,
           "nombre": "Dar seguimiento a acciones de terceros",
-          "descripcion": "Dar seguimiento a acciones de terceros ajenos al despacho.",
+          "descripcion": "Seguimiento a acciones de terceros.",
           "ejemplos": [],
           "exclusiones": []
         }
@@ -220,7 +225,7 @@
           "id": "tramites_impi",
           "numero": 1,
           "nombre": "Ingresar trámite IMPI",
-          "descripcion": "Trámites ante el IMPI.",
+          "descripcion": "Ingreso de trámites ante el IMPI.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -228,7 +233,7 @@
           "id": "tramites_sai",
           "numero": 2,
           "nombre": "Ingresar SAI",
-          "descripcion": "Trámites en el SAI.",
+          "descripcion": "Ingreso de SAI.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -236,7 +241,7 @@
           "id": "informes_rnie",
           "numero": 3,
           "nombre": "Registrar informe trimestral o anual RNIE",
-          "descripcion": "Informes trimestrales o anuales RNIE.",
+          "descripcion": "Registro de informe trimestral o anual RNIE.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -268,7 +273,7 @@
           "id": "otros_tramites_administrativos",
           "numero": 7,
           "nombre": "Otros trámites administrativos",
-          "descripcion": "Otros trámites administrativos no clasificados.",
+          "descripcion": "Otros trámites administrativos.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -276,7 +281,7 @@
           "id": "citas_audiencias_corporativo",
           "numero": 8,
           "nombre": "Citas y audiencias",
-          "descripcion": "Citas y audiencias del equipo corporativo.",
+          "descripcion": "Citas y audiencias.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -284,7 +289,7 @@
           "id": "avisos_sat_cambio_accionistas",
           "numero": 9,
           "nombre": "Avisos SAT cambio de accionistas",
-          "descripcion": "Avisos al SAT por cambio de accionistas.",
+          "descripcion": "Avisos SAT por cambio de accionistas.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -292,7 +297,7 @@
           "id": "desahogo_prevenciones_corporativo",
           "numero": 10,
           "nombre": "Desahogo de prevenciones",
-          "descripcion": "Desahogo de prevenciones del equipo corporativo.",
+          "descripcion": "Desahogo de prevenciones en materia corporativa-laboral.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -300,7 +305,7 @@
           "id": "esperar_resolucion_corporativo",
           "numero": 11,
           "nombre": "Esperar resolución",
-          "descripcion": "Asuntos corporativos en espera de resolución.",
+          "descripcion": "Esperar resolución en materia corporativa-laboral.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -308,7 +313,7 @@
           "id": "registro_instrumento_rpp_rpm_rpc",
           "numero": 12,
           "nombre": "Registro de instrumento en RPP, RPM o RPC",
-          "descripcion": "Registro de instrumentos en RPP, RPM o RPC.",
+          "descripcion": "Registro de instrumento en RPP, RPM o RPC.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -316,7 +321,7 @@
           "id": "entrega_instrumento_clientes",
           "numero": 13,
           "nombre": "Entrega de instrumento a clientes",
-          "descripcion": "Entrega de instrumentos a clientes.",
+          "descripcion": "Entrega de instrumento a clientes.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -353,7 +358,7 @@
           "id": "desahogo_prevenciones_convenios",
           "numero": 3,
           "nombre": "Desahogo de prevenciones",
-          "descripcion": "Desahogo de prevenciones del equipo de convenios.",
+          "descripcion": "Desahogo de prevenciones en convenios.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -406,7 +411,7 @@
           "id": "fin_reportes_redeco",
           "numero": 5,
           "nombre": "Reportes REDECO mensual",
-          "descripcion": "Reportes REDECO mensuales.",
+          "descripcion": "Reportes REDECO mensual.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -414,7 +419,7 @@
           "id": "fin_reportes_redeco_trimestral",
           "numero": 6,
           "nombre": "Reportes REDECO trimestral",
-          "descripcion": "Reportes REDECO trimestrales.",
+          "descripcion": "Reportes REDECO trimestral.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -454,7 +459,7 @@
           "id": "fin_desahogos_requerimientos",
           "numero": 11,
           "nombre": "Desahogos de requerimientos",
-          "descripcion": "Desahogos de requerimientos financieros.",
+          "descripcion": "Desahogos de requerimientos.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -539,7 +544,7 @@
           "id": "comp_entregables",
           "numero": 5,
           "nombre": "Entregables",
-          "descripcion": "Entregables del equipo de compliance fiscal.",
+          "descripcion": "Entregables.",
           "ejemplos": [],
           "exclusiones": []
         },
@@ -628,10 +633,11 @@
   ],
   "criterios_desambiguacion": [
     "Si el texto habla de 'desahogo de prevenciones', 'esperar resolución' o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.",
-    "Si el texto corresponde a un trámite/regulación corporativa, no lo mandes a Litigio.",
+    "Si el texto corresponde a un trámite o regulación corporativa, no lo mandes a Litigio.",
     "Si el texto corresponde a reportes regulatorios, CONDUSEF, REDECO, REUNE, REUS, IFIT o requerimientos financieros, clasifica en Der Financiero.",
-    "Si el texto corresponde a declaraciones SAT/ISN/IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.",
+    "Si el texto corresponde a declaraciones SAT, ISN, IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.",
     "Si el texto corresponde a convenios, mediación o investigación registral para convenios, clasifica en Convenios.",
-    "Si el texto apunta a 'acciones de terceros que son parte del juicio' u otra categoría no incluida, devuelve null."
+    "Si el texto apunta a 'acciones de terceros que son parte del juicio' u otra categoría no incluida arriba, devuelve NULL.",
+    "Si una instrucción puede leerse como gestión por escrito o gestión verbal con autoridad judicial, debes preferir la gestión por escrito, salvo que el contexto haga muy clara la necesidad de acudir personalmente."
   ]
 }

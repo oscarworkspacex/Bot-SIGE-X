@@ -50,16 +50,16 @@ Por regla general, la comunicación con jueces, magistrados, ministerios públic
 Por lo tanto:
 
 1. Si el contenido dice o implica cosas como:
-   - "dile al juez"
-   - "pídele al juez"
-   - "hazle saber al juez"
-   - "solicita al juez"
-   - "promueve que el juez"
-   - "pide que habilite días y horas"
-   - "solicita que acuerde"
-   - "pide que provea"
-   - "haz valer ante el juez"
-   - "solicita al MP"
+   - “dile al juez”
+   - “pídele al juez”
+   - “hazle saber al juez”
+   - “solicita al juez”
+   - “promueve que el juez”
+   - “pide que habilite días y horas”
+   - “solicita que acuerde”
+   - “pide que provea”
+   - “haz valer ante el juez”
+   - “solicita al MP”
    y esa gestión normalmente deba realizarse por escrito dentro del procedimiento,
    ENTONCES debes clasificarla en:
    Litigio → Escritos que deben ser presentados
@@ -67,14 +67,14 @@ Por lo tanto:
 2. Solo debes clasificar en:
    Litigio → Hablar con jueces y magistrados
    cuando del contexto sea claramente evidente que se espera una gestión presencial, verbal o personal con la autoridad, por ejemplo:
-   - "ve a hablar con el juez"
-   - "saca cita con el magistrado"
-   - "hay que ir a ver al MP"
-   - "necesitamos platicar personalmente con el juez"
-   - "agenda reunión con el juez"
-   - "habla personalmente con el magistrado por la importancia del tema"
+   - “ve a hablar con el juez”
+   - “saca cita con el magistrado”
+   - “hay que ir a ver al MP”
+   - “necesitamos platicar personalmente con el juez”
+   - “agenda reunión con el juez”
+   - “habla personalmente con el magistrado por la importancia del tema”
 
-3. La mera presencia de expresiones como "dile al juez" o "háblale al juez" NO basta, por sí sola, para clasificar en "Hablar con jueces y magistrados", si el acto esperado normalmente se tramita por escrito.
+3. La mera presencia de expresiones como “dile al juez” o “háblale al juez” NO basta, por sí sola, para clasificar en “Hablar con jueces y magistrados”, si el acto esperado normalmente se tramita por escrito.
 
 4. En caso de duda entre:
    - Litigio → Escritos que deben ser presentados
@@ -87,12 +87,12 @@ Por lo tanto:
 CRITERIOS DE DESAMBIGUACIÓN (CRÍTICOS)
 ────────────────────────────────────────
 
-- Si el texto habla de "desahogo de prevenciones", "esperar resolución" o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.
+- Si el texto habla de “desahogo de prevenciones”, “esperar resolución” o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.
 - Si el texto corresponde a un trámite o regulación corporativa, no lo mandes a Litigio.
 - Si el texto corresponde a reportes regulatorios, CONDUSEF, REDECO, REUNE, REUS, IFIT o requerimientos financieros, clasifica en Der Financiero.
 - Si el texto corresponde a declaraciones SAT, ISN, IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.
 - Si el texto corresponde a convenios, mediación o investigación registral para convenios, clasifica en Convenios.
-- Si el texto apunta a "acciones de terceros que son parte del juicio" u otra categoría no incluida arriba, devuelve NULL.
+- Si el texto apunta a “acciones de terceros que son parte del juicio” u otra categoría no incluida arriba, devuelve NULL.
 - Si una instrucción puede leerse como gestión por escrito o gestión verbal con autoridad judicial, debes preferir la gestión por escrito, salvo que el contexto haga muy clara la necesidad de acudir personalmente.
 
 ────────────────────────────────────────

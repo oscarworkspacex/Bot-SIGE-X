@@ -96,11 +96,13 @@ def test_prompts_capa2_exists_and_has_placeholder():
     prompt_path = Path(__file__).parent.parent / "app" / "prompts" / "capa_2.txt"
     text = prompt_path.read_text(encoding="utf-8")
     assert "[EQUIPO_PRIMORDIAL]" in text
-    assert "[CATALOGO_JSON]" in text
-    assert "[CRITERIOS_DESAMBIGUACION]" in text
-    assert "tarea" in text
-    assert "equipo" in text
-    assert "tabla" in text
+    assert "[CATALOGO_JSON]" not in text
+    assert "[CRITERIOS_DESAMBIGUACION]" not in text
+    assert "CATÁLOGO CERRADO DE TAREAS PERMITIDAS" in text
+    assert "CRITERIOS DE DESAMBIGUACIÓN" in text
+    assert "tarea" in text.lower()
+    assert "equipo" in text.lower()
+    assert "tabla" in text.lower()
 
 
 # --- Pre-filtro ---
