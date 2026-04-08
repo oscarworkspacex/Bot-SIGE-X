@@ -73,7 +73,9 @@ app/
   storage/      Motor de DB y repositorio de acceso a datos
   services/     Lógica de negocio y orquestación
   api/          Endpoints FastAPI (health, webhook futuro)
-tests/          Tests de humo
+tests/          Tests de humo y regresión
+eval/           Casos dorados opcionales (evaluación con LLM real)
+docs/           Guías de operación y versionado
 data/           Base de datos SQLite (no versionada)
 ```
 
@@ -96,3 +98,9 @@ pytest tests/ -v
 ```
 
 Incluye pruebas de humo (`test_smoke.py`) y regresión del pipeline con mocks (`test_regression_classification.py`), más heurísticas de síntesis canónica en `app/classifiers/synthesis_quality.py` (uso en CI/tests, no altera respuestas en runtime).
+
+### Versionado y evaluación opcional (sin cambiar el núcleo)
+
+- **Versión del paquete** catálogo + prompts: `app/catalog/bundle_manifest.json` (`bundle_version`). Al editar `catalog.json` o los prompts, sube la versión y registra el cambio en `CHANGELOG.md`.
+- **Guía operativa:** `docs/operacion_y_versionado.md` (monitoreo sugerido, set dorado).
+- **Evaluación con modelo real** (opcional, costo API): `python scripts/evaluate_golden_set.py` (sin flags no llama a la API); con `--live` usa `eval/golden_cases.json`.

@@ -1,0 +1,9 @@
+{
+  "bundle_version": "1.0.0",
+  "description": "Versión lógica del conjunto catálogo + prompts. Subir el número al editar catalog.json, capa_1.txt o capa_2.txt; registrar el cambio en CHANGELOG.md.",
+  "components": {
+    "catalog": "app/catalog/catalog.json",
+    "prompt_capa1": "app/prompts/capa_1.txt",
+    "prompt_capa2": "app/prompts/capa_2.txt"
+  }
+}

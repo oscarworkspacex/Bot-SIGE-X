@@ -1,0 +1,77 @@
+{
+  "description": "Casos para evaluación opcional con el modelo real (scripts/evaluate_golden_set.py --live). Las expectativas son objetivo de calidad; el LLM puede variar ligeramente.",
+  "cases": [
+    {
+      "id": "copias_certificadas_escrito",
+      "text": "Hay que presentar una solicitud de copias certificadas de todo lo actuado en el expediente",
+      "expect": {
+        "equipo": "Litigio",
+        "tabla": "Escritos que deben ser presentados"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "copias_listas_recoger",
+      "text": "Las copias certificadas ya están listas para recoger en el juzgado el viernes",
+      "expect": {
+        "equipo": "Litigio",
+        "tabla": "Copias pendientes"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "declaraciones_sat",
+      "text": "Nos contrataron para presentar declaraciones mensuales ante el SAT sin operaciones",
+      "expect": {
+        "equipo": "Compliance Fiscal",
+        "tabla": "Declaraciones SAT que deben ser presentadas"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "dile_al_juez_habilitacion",
+      "text": "Por favor dile al juez que habilite los días y horas inhábiles para el emplazamiento",
+      "expect": {
+        "equipo": "Litigio",
+        "tabla": "Escritos que deben ser presentados"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "condusef_queja",
+      "text": "Urge contestar la queja que entró en CONDUSEF por el cargo no reconocido",
+      "expect": {
+        "equipo": "Der Financiero",
+        "tabla": "Quejas CONDUSEF que deben ser contestadas"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "impi_marca",
+      "text": "Registrar la marca ante el IMPI con la documentación que envió el cliente",
+      "expect": {
+        "equipo": "Corporativo y laboral",
+        "tabla": "Ingresar trámite IMPI"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "convenio_mediacion",
+      "text": "Hay que preparar el convenio de mediación entre las partes para la próxima sesión",
+      "expect": {
+        "equipo": "Convenios",
+        "tabla": "Convenios de mediación"
+      },
+      "expect_capa1_positivo": true
+    },
+    {
+      "id": "hablar_personal_juez",
+      "text": "Necesitamos ir personalmente a ver al juez mañana para explicarle el tema",
+      "expect": {
+        "equipo": "Litigio",
+        "tabla": "Hablar con jueces y magistrados"
+      },
+      "expect_capa1_positivo": true
+    }
+  ]
+}
