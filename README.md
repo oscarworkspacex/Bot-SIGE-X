@@ -94,3 +94,5 @@ Los archivos `Capa 1.txt` y `Capa 2 nueva.txt` en la raíz son **punteros** al c
 ```bash
 pytest tests/ -v
 ```
+
+Incluye pruebas de humo (`test_smoke.py`) y regresión del pipeline con mocks (`test_regression_classification.py`), más heurísticas de síntesis canónica en `app/classifiers/synthesis_quality.py` (uso en CI/tests, no altera respuestas en runtime).
