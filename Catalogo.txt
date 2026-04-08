@@ -1,106 +1,176 @@
-Catálogo cerrado permitido de tareas a ser identificadas: 
+Catálogo operativo (generado — no editar a mano).
+Fuente: app/catalog/catalog.json
+Regenerar: python scripts/export_catalog_docs.py
+
+Criterios de desambiguación (resumen):
+- Si el texto habla de 'desahogo de prevenciones', 'esperar resolución' o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.
+- Si el texto corresponde a un trámite o regulación corporativa, no lo mandes a Litigio.
+- Si el texto corresponde a reportes regulatorios, CONDUSEF, REDECO, REUNE, REUS, IFIT o requerimientos financieros, clasifica en Der Financiero.
+- Si el texto corresponde a declaraciones SAT, ISN, IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.
+- Si el texto corresponde a convenios, mediación o investigación registral para convenios, clasifica en Convenios.
+- Si el texto apunta a 'acciones de terceros que son parte del juicio' u otra categoría no incluida arriba, devuelve NULL.
+- Si una instrucción puede leerse como gestión por escrito o gestión verbal con autoridad judicial, debes preferir la gestión por escrito, salvo que el contexto haga muy clara la necesidad de acudir personalmente.
+
+---
 
 [Litigio]
--Tabla: 1. Escritos de fondo
-A. Tareas a ser identificadas:
-DESCRIPCIÓN GENERAL: Cualquier escrito inicial o de fondo, impugnaciones, recursos o escritos complejos.
-EJEMPLOS: amparos, recursos de queja, quejas, recursos de revisión, recursos de revocación, demandas de nulidad, demandas demandas de todo tipo, denuncias, ampliaciones de demanda, ampliaciones de amparo, recursos de freconsideración, apelaciones, inconformidades.
-EXCLUSIONES: No incluir en esta tabla los escritos de las tablas 2 y 3 de este equipo.
-
--TABLA: 2. Escritos que deben ser presentados 
-DESCRIPCIÓN GENERAL: Todo tipo de escritos diferentes a los señalados en la tabla anterior. Escritos que no son de fondo de razonamiento jurídico.
-EJEMPLOS: autorizaciones, desahogos de vista, solicitudes de todo tipo, solicitudes de copias, presentaciones de documentos, compareencias, apelaciones de tramitación preventiva, aceptaciones del cargo de albacea.
-EXCLUSIONES: No incluir en esta tabla los escritos de las tablas 1 y 3 de este equipo.
-
--TABLA: 3. Desahogo de prevenciones 
-DESCRIPCIÓN GENERAL: Desahogos de prevenciones hechas por los jueces o equivalente a los escritos iniciales o a los escriotos de fondo de cualquier tipo.
-EJEMPLOS: desahogo de prevención.
-EXCLUSIONES: No incluir en esta tabla los escritos de las tablas 1 y 2 de este equipo.
-
--TABLA: 4. Hablar con jueces y magistrados 
-DESCRIPCIÓN GENERAL: Tareas relacionadas con la necesidad de hablar personalmente con los jueces o equivalentes, y, en general, autoridades tomadoras de decisión.
-EJEMPLOS: Hablar con juez, hablar con magistrado, hablar con MP, hablar con un funcionario público, hacer cita con njuez o magistrado, hacer cita don Director de Obras.
-EXLUSIONES: Hablar con particulares.
-
-- sentencias_pendientes => 5. Sentencias pendientes
-- audiencias_citas_oficiales => 6. Audiencias y citas oficiales
-- citas_actuarios => 7. Citas con actuarios
-- notificaciones_emplazamientos_pendientes => 8. Notificaciones y emplazamientos pendientes
-- apelaciones_tramitacion_preventiva => 9. Apelaciones de tramitación preventiva
-- apelaciones_recursos_amparos_pendientes => 10. Apelaciones, recursos de alzada y amparos pendientes de ser radicados
-- copias_pendientes => 11. Copias pendientes
-- oficios_exhortos_pendientes => 12. Oficios y exhortos pendientes
-- pruebas_pendientes => 13. Pruebas pendientes de ser presentadas
-- publicaciones => 14. Publicaciones
-- esperar_resolucion => 15. Esperar resolución
-- fechas_aceptacion_albacea => 16. Fechas de aceptación del cargo de albacea
-- expedientes_devueltos_archivo => 17. Expedientes que deben ser devueltos del archivo judicial
-- devoluciones_documentos_pendientes => 18. Devoluciones de documentos pendientes
-- expedientes_escaneados => 19. Expedientes que deben ser escaneados
-- asuntos_delegados_corporativo => 20. Asuntos delegados en equipo de derecho corporativo-laboral
-- seguimiento_terceros_ajenos => 21. Dar seguimiento a acciones de terceros
+- 1. Escritos de fondo
+  Descripción: Cualquier escrito inicial o de fondo, impugnaciones, recursos o escritos complejos.
+  Ejemplos: amparos, recursos de queja, quejas, recursos de revisión, recursos de revocación, demandas de nulidad, demandas de todo tipo, denuncias, ampliaciones de demanda, ampliaciones de amparo, recursos de reconsideración, apelaciones, inconformidades
+  Exclusión: No incluir en esta tabla los escritos de las tablas 2 y 3 de este equipo.
+- 2. Escritos que deben ser presentados
+  Descripción: Todo tipo de escritos diferentes a los señalados en la tabla anterior. Escritos que no son de fondo de razonamiento jurídico.
+  Ejemplos: autorizaciones, desahogos de vista, solicitudes de todo tipo, solicitudes de copias, presentaciones de documentos, comparecencias, apelaciones de tramitación preventiva, aceptaciones del cargo de albacea, solicitar habilitación de días y horas inhábiles, presentar escrito para habilitar días y horas inhábiles
+  Exclusión: No incluir en esta tabla los escritos de las tablas 1 y 3 de este equipo.
+  Exclusión: No incluir aquí el mero seguimiento de copias ya solicitadas pendientes de expedición o entrega cuando no se indique presentar un escrito nuevo; en ese caso usar Copias pendientes.
+- 3. Desahogo de prevenciones
+  Descripción: Desahogos de prevenciones hechas por los jueces o equivalente a los escritos iniciales o a los escritos de fondo de cualquier tipo.
+  Ejemplos: desahogo de prevención
+  Exclusión: No incluir en esta tabla los escritos de las tablas 1 y 2 de este equipo.
+- 4. Hablar con jueces y magistrados
+  Descripción: Tareas relacionadas con la necesidad de hablar personalmente con los jueces o equivalentes y, en general, autoridades tomadoras de decisión.
+  Ejemplos: hablar con juez, hablar con magistrado, hablar con MP, hablar con un funcionario público, hacer cita con juez o magistrado, hacer cita con Director de Obras, ir personalmente a ver al juez, agenda una reunión con el magistrado
+  Exclusión: Hablar con particulares.
+  Exclusión: No incluir aquí peticiones que por regla general deban formularse por escrito, aunque el mensaje use expresiones como 'dile al juez' o 'pídele al juez'.
+- 5. Sentencias pendientes
+  Descripción: Pendiente de emisión o llegada de sentencia.
+- 6. Audiencias y citas oficiales
+  Descripción: Audiencias y citas oficiales dentro de procedimientos.
+- 7. Citas con actuarios
+  Descripción: Citas con actuarios.
+- 8. Notificaciones y emplazamientos pendientes
+  Descripción: Notificaciones y emplazamientos pendientes.
+- 9. Apelaciones de tramitación preventiva
+  Descripción: Apelaciones de tramitación preventiva.
+- 10. Apelaciones, recursos de alzada y amparos pendientes de ser radicados
+  Descripción: Apelaciones, recursos de alzada y amparos pendientes de ser radicados.
+- 11. Copias pendientes
+  Descripción: Copias ya solicitadas pendientes de ser expedidas, entregadas o recogidas; seguimiento del estado de copias sin presentar un nuevo escrito de solicitud.
+  Ejemplos: copias certificadas listas para recoger, pendiente de expedir copias ya pedidas, recoger copias en el juzgado, seguimiento de copias en trámite
+  Exclusión: No usar cuando la tarea sea presentar, promover o elaborar el escrito de solicitud de copias (certificadas o simples); en ese caso usar Escritos que deben ser presentados.
+- 12. Oficios y exhortos pendientes
+  Descripción: Oficios y exhortos pendientes.
+- 13. Pruebas pendientes de ser presentadas
+  Descripción: Pruebas pendientes de ser presentadas.
+- 14. Publicaciones
+  Descripción: Publicaciones.
+- 15. Esperar resolución
+  Descripción: Esperar resolución.
+- 16. Fechas de aceptación del cargo de albacea
+  Descripción: Fechas de aceptación del cargo de albacea.
+- 17. Expedientes que deben ser devueltos del archivo judicial
+  Descripción: Expedientes pendientes de devolución del archivo judicial.
+- 18. Devoluciones de documentos pendientes
+  Descripción: Devoluciones de documentos pendientes.
+- 19. Expedientes que deben ser escaneados
+  Descripción: Expedientes que deben ser escaneados.
+- 20. Asuntos delegados en equipo de derecho corporativo-laboral
+  Descripción: Asuntos delegados al equipo corporativo-laboral.
+- 21. Dar seguimiento a acciones de terceros
+  Descripción: Seguimiento a acciones de terceros.
 
 [Corporativo y laboral]
-- tramites_impi => 1. Ingresar trámite IMPI
-- tramites_sai => 2. Ingresar SAI
-- informes_rnie => 3. Registrar informe trimestral o anual RNIE
-- instrumentos_pendientes_firma => 4. Instrumentos pendientes de firma
-- cuentas_bancarias_pend => 5. Cuentas bancarias (y similares) pendientes
-- declaraciones_uso_efectivo => 6. Declaraciones de uso efectivo
-- otros_tramites_administrativos => 7. Otros trámites administrativos
-- citas_audiencias_corporativo => 8. Citas y audiencias
-- avisos_sat_cambio_accionistas => 9. Avisos SAT cambio de accionistas
-- desahogo_prevenciones_corporativo => 10. Desahogo de prevenciones
-- esperar_resolucion_corporativo => 11. Esperar resolución
-- registro_instrumento_rpp_rpm_rpc => 12. Registro de instrumento en RPP, RPM o RPC
-- entrega_instrumento_clientes => 13. Entrega de instrumento a clientes
-- busquedas_foneticas => 14. Búsquedas fonéticas
+- 1. Ingresar trámite IMPI
+  Descripción: Ingreso de trámites ante el IMPI.
+- 2. Ingresar SAI
+  Descripción: Ingreso de SAI.
+- 3. Registrar informe trimestral o anual RNIE
+  Descripción: Registro de informe trimestral o anual RNIE.
+- 4. Instrumentos pendientes de firma
+  Descripción: Instrumentos pendientes de firma.
+- 5. Cuentas bancarias (y similares) pendientes
+  Descripción: Cuentas bancarias y similares pendientes.
+- 6. Declaraciones de uso efectivo
+  Descripción: Declaraciones de uso efectivo.
+- 7. Otros trámites administrativos
+  Descripción: Otros trámites administrativos.
+- 8. Citas y audiencias
+  Descripción: Citas y audiencias.
+- 9. Avisos SAT cambio de accionistas
+  Descripción: Avisos SAT por cambio de accionistas.
+- 10. Desahogo de prevenciones
+  Descripción: Desahogo de prevenciones en materia corporativa-laboral.
+- 11. Esperar resolución
+  Descripción: Esperar resolución en materia corporativa-laboral.
+- 12. Registro de instrumento en RPP, RPM o RPC
+  Descripción: Registro de instrumento en RPP, RPM o RPC.
+- 13. Entrega de instrumento a clientes
+  Descripción: Entrega de instrumento a clientes.
+- 14. Búsquedas fonéticas
+  Descripción: Búsquedas fonéticas.
 
 [Convenios]
-- convenios_contratos_no_mediacion => 1. Convenios o contratos (no de mediacion)
-- convenios_mediacion => 2. Convenios de mediacion
-- desahogo_prevenciones_convenios => 3. Desahogo de prevenciones
-- investigacion_antecedentes_registrales => 4. Investigación de antecedentes registrales
+- 1. Convenios o contratos (no de mediación)
+  Descripción: Convenios o contratos que no son de mediación.
+- 2. Convenios de mediación
+  Descripción: Convenios de mediación.
+- 3. Desahogo de prevenciones
+  Descripción: Desahogo de prevenciones en convenios.
+- 4. Investigación de antecedentes registrales
+  Descripción: Investigación de antecedentes registrales.
 
 [Der Financiero]
-- fin_solicitudes_periodicas_info => 1. Solicitudes periódicas de información
-- fin_proximo_termino_sofomes => 2. Próximo término para contratos de SOFOMES
-- fin_reportes_ifit => 3. Reportes IFIT
-- fin_reportes_reco => 4. Reportes RECO
-- fin_reportes_redeco => 5. Reportes REDECO mensual
-- fin_reportes_redeco_trimestral => 6. Reportes REDECO trimestral
-- fin_reportes_reune_mensuales => 7. Reportes REUNE mensuales
-- fin_reportes_reune_trimestrales => 8. Reportes REUNE trimestrales
-- fin_reportes_reus => 9. Reportes REUS
-- fin_quejas_condusef_contestadas => 10. Quejas CONDUSEF que deben ser contestadas
-- fin_desahogos_requerimientos => 11. Desahogos de requerimientos
-- fin_reportes_operaciones_relevantes => 12. Reportes de operaciones relevantes
-- fin_reportes_operaciones_vulnerables => 13. Reportes de operaciones vulnerables
-- fin_reportes_operaciones_inusuales => 14. Reportes de operaciones inusuales
-- fin_reportes_operaciones_preocupantes => 15. Reportes de operaciones preocupantes
-- fin_cuentas_bancarias_similares_proceso => 16. Cuentas bancarias y similares en proceso
+- 1. Solicitudes periódicas de información
+  Descripción: Solicitudes periódicas de información.
+- 2. Próximo término para contratos de SOFOMES
+  Descripción: Próximo término para contratos de SOFOMES.
+- 3. Reportes IFIT
+  Descripción: Reportes IFIT.
+- 4. Reportes RECO
+  Descripción: Reportes RECO.
+- 5. Reportes REDECO mensual
+  Descripción: Reportes REDECO mensual.
+- 6. Reportes REDECO trimestral
+  Descripción: Reportes REDECO trimestral.
+- 7. Reportes REUNE mensuales
+  Descripción: Reportes REUNE mensuales.
+- 8. Reportes REUNE trimestrales
+  Descripción: Reportes REUNE trimestrales.
+- 9. Reportes REUS
+  Descripción: Reportes REUS.
+- 10. Quejas CONDUSEF que deben ser contestadas
+  Descripción: Quejas CONDUSEF que deben ser contestadas.
+- 11. Desahogos de requerimientos
+  Descripción: Desahogos de requerimientos.
+- 12. Reportes de operaciones relevantes
+  Descripción: Reportes de operaciones relevantes.
+- 13. Reportes de operaciones vulnerables
+  Descripción: Reportes de operaciones vulnerables.
+- 14. Reportes de operaciones inusuales
+  Descripción: Reportes de operaciones inusuales.
+- 15. Reportes de operaciones preocupantes
+  Descripción: Reportes de operaciones preocupantes.
+- 16. Cuentas bancarias y similares en proceso
+  Descripción: Cuentas bancarias y similares en proceso.
 
 [Compliance Fiscal]
-- comp_pre_declaraciones_enviadas => 1. Pre-declaraciones que deben ser enviadas
-- comp_declaraciones_sat_presentadas => 2. Declaraciones SAT que deben ser presentadas
-- comp_declaraciones_isn_presentadas => 3. Declaraciones de ISN que deben ser presentadas
-- comp_declaraciones_imss_presentadas => 4. Declaraciones de IMSS que deben ser presentadas
-- comp_entregables => 5. Entregables
-- comp_procesamiento_contabilidad => 6. Procesamiento de contabilidad
-- comp_contabilidad_electronica_sat => 7. Contabilidad electrónica que debe ser subida al SAT
-- comp_declaraciones_anuales => 8. Declaraciones anuales
-- comp_declaracion_anual_accionistas_extranjeros => 9. Declaración anual de relación de accionistas extranjeros
-- comp_declaracion_cambio_accionistas => 10. Declaración de cambio de accionistas
-- comp_vigencia_efirmas => 11. Vigencia de e.firmas
-- comp_movimientos_imss => 12. Movimientos IMSS
-- comp_citas_sat_pendientes => 13. Citas SAT pendientes
-- comp_tramites_en_proceso => 14. Trámites en proceso
-- comp_empresas_domiciliadas_yacatas => 15. Procesar comprobante de domicilio en Yácatas
-
-Criterios de desambiguación:
-- Si el texto habla de “desahogo de prevenciones”, “esperar resolución” o categorías presentes en más de un equipo, solo clasifica si el equipo resulta claro por el contenido o metadatos.
-- Si el texto corresponde a un trámite/regulación corporativa, no lo mandes a Litigio.
-- Si el texto corresponde a reportes regulatorios, CONDUSEF, REDECO, REUNE, REUS, IFIT o requerimientos financieros, clasifica en Der Financiero.
-- Si el texto corresponde a declaraciones SAT/ISN/IMSS, contabilidad, e.firma, citas SAT, cambio de accionistas o trámites fiscales, clasifica en Compliance Fiscal.
-- Si el texto corresponde a convenios, mediación o investigación registral para convenios, clasifica en Convenios.
-- Si el texto apunta a “acciones de terceros que son parte del juicio” u otra categoría no incluida arriba, devuelve null.
+- 1. Pre-declaraciones que deben ser enviadas
+  Descripción: Pre-declaraciones que deben ser enviadas.
+- 2. Declaraciones SAT que deben ser presentadas
+  Descripción: Declaraciones SAT que deben ser presentadas.
+- 3. Declaraciones de ISN que deben ser presentadas
+  Descripción: Declaraciones de ISN que deben ser presentadas.
+- 4. Declaraciones de IMSS que deben ser presentadas
+  Descripción: Declaraciones de IMSS que deben ser presentadas.
+- 5. Entregables
+  Descripción: Entregables.
+- 6. Procesamiento de contabilidad
+  Descripción: Procesamiento de contabilidad.
+- 7. Contabilidad electrónica que debe ser subida al SAT
+  Descripción: Contabilidad electrónica que debe ser subida al SAT.
+- 8. Declaraciones anuales
+  Descripción: Declaraciones anuales.
+- 9. Declaración anual de relación de accionistas extranjeros
+  Descripción: Declaración anual de relación de accionistas extranjeros.
+- 10. Declaración de cambio de accionistas
+  Descripción: Declaración de cambio de accionistas.
+- 11. Vigencia de e.firmas
+  Descripción: Vigencia de e.firmas.
+- 12. Movimientos IMSS
+  Descripción: Movimientos IMSS.
+- 13. Citas SAT pendientes
+  Descripción: Citas SAT pendientes.
+- 14. Trámites en proceso
+  Descripción: Trámites en proceso.
+- 15. Procesar comprobante de domicilio en Yácatas
+  Descripción: Procesar comprobante de domicilio en Yácatas.

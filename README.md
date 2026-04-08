@@ -77,6 +77,18 @@ tests/          Tests de humo
 data/           Base de datos SQLite (no versionada)
 ```
 
+### Catálogo (fuente única)
+
+- La **única fuente canónica** de equipos, tablas, descripciones y exclusiones es `app/catalog/catalog.json`.
+- **Capa 1** y **Capa 2** arman sus prompts a partir de ese JSON (Capa 2 ya no duplica el catálogo en el archivo de prompt).
+- `Catalogo.txt` en la raíz es un **resumen generado**; para actualizarlo tras cambiar el JSON:
+
+```bash
+python scripts/export_catalog_docs.py
+```
+
+Los archivos `Capa 1.txt` y `Capa 2 nueva.txt` en la raíz son **punteros** al contenido real bajo `app/prompts/` y `app/catalog/`.
+
 ## Tests
 
 ```bash

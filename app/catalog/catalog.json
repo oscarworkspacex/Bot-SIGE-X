@@ -45,7 +45,8 @@
             "presentar escrito para habilitar días y horas inhábiles"
           ],
           "exclusiones": [
-            "No incluir en esta tabla los escritos de las tablas 1 y 3 de este equipo."
+            "No incluir en esta tabla los escritos de las tablas 1 y 3 de este equipo.",
+            "No incluir aquí el mero seguimiento de copias ya solicitadas pendientes de expedición o entrega cuando no se indique presentar un escrito nuevo; en ese caso usar Copias pendientes."
           ]
         },
         {
@@ -132,9 +133,16 @@
           "id": "copias_pendientes",
           "numero": 11,
           "nombre": "Copias pendientes",
-          "descripcion": "Copias pendientes.",
-          "ejemplos": [],
-          "exclusiones": []
+          "descripcion": "Copias ya solicitadas pendientes de ser expedidas, entregadas o recogidas; seguimiento del estado de copias sin presentar un nuevo escrito de solicitud.",
+          "ejemplos": [
+            "copias certificadas listas para recoger",
+            "pendiente de expedir copias ya pedidas",
+            "recoger copias en el juzgado",
+            "seguimiento de copias en trámite"
+          ],
+          "exclusiones": [
+            "No usar cuando la tarea sea presentar, promover o elaborar el escrito de solicitud de copias (certificadas o simples); en ese caso usar Escritos que deben ser presentados."
+          ]
         },
         {
           "id": "oficios_exhortos_pendientes",

@@ -7,6 +7,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from app.catalog.loader import load_catalog, validate_classification
+from app.catalog.prompt_payload import build_capa2_catalog_json_text
 from app.config.settings import get_settings
 from app.services.openai_client import get_openai_client
 
@@ -60,7 +61,9 @@ def _build_schema() -> dict:
 @lru_cache(maxsize=32)
 def _build_instructions(equipo_primordial: str) -> str:
     template = _PROMPT_PATH.read_text(encoding="utf-8")
-    return template.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
+    catalog_json = build_capa2_catalog_json_text()
+    prompt = template.replace("[CATALOGO_JSON]", catalog_json)
+    return prompt.replace("[EQUIPO_PRIMORDIAL]", equipo_primordial)
 
 
 def _parse_structured(data: dict) -> Capa2Result:

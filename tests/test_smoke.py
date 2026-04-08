@@ -96,13 +96,35 @@ def test_prompts_capa2_exists_and_has_placeholder():
     prompt_path = Path(__file__).parent.parent / "app" / "prompts" / "capa_2.txt"
     text = prompt_path.read_text(encoding="utf-8")
     assert "[EQUIPO_PRIMORDIAL]" in text
-    assert "[CATALOGO_JSON]" not in text
-    assert "[CRITERIOS_DESAMBIGUACION]" not in text
+    assert "[CATALOGO_JSON]" in text
     assert "CATÁLOGO CERRADO DE TAREAS PERMITIDAS" in text
     assert "CRITERIOS DE DESAMBIGUACIÓN" in text
     assert "tarea" in text.lower()
     assert "equipo" in text.lower()
     assert "tabla" in text.lower()
+
+
+def test_capa2_catalog_payload_aligns_with_loader():
+    from app.catalog.loader import load_catalog
+    from app.catalog.prompt_payload import build_capa2_catalog_payload
+    catalog = load_catalog()
+    payload = build_capa2_catalog_payload()
+    assert len(payload["equipos"]) == len(catalog["equipos"])
+    lit = next(e for e in payload["equipos"] if e["nombre"] == "Litigio")
+    assert any(t["nombre"] == "Copias pendientes" for t in lit["tablas"])
+    copias = next(t for t in lit["tablas"] if t["nombre"] == "Copias pendientes")
+    assert copias["descripcion_general"]
+    assert copias["ejemplos"]
+
+
+def test_capa2_instructions_injects_catalog():
+    from app.classifiers.capa_2 import _build_instructions
+    _build_instructions.cache_clear()
+    text = _build_instructions("No especificado")
+    assert "[CATALOGO_JSON]" not in text
+    assert "Litigio" in text
+    assert "Escritos que deben ser presentados" in text
+    assert "descripcion_general" in text
 
 
 # --- Pre-filtro ---
